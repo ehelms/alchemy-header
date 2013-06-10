@@ -1,0 +1,10 @@
+<li class="menu-item"
+    ng-mouseenter="handleHover(true)"
+    ng-mouseleave="handleHover(false)">
+    
+  <a href="{{ href }}"
+     class="menu-item-link"
+     ng-class="{ 'active-item' : active, 'menu-anchor' : item.type }"
+     ng-transclude>
+  </a>
+</li>

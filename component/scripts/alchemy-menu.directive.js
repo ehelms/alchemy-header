@@ -10,24 +10,13 @@ angular.module('alchemy').directive('alchMenu', ['$window', function($window){
             'compact' : '@'
         },
         templateUrl: 'component/templates/menu.html',
+
         controller: ['$scope', function($scope) {
-            $scope.dropdown = {};
+            $scope.items = [];
 
-            $scope.handleHover = function(item, mousein) {
-                if (item.type === 'dropdown' && mousein) {
-                    item.active = true;
-                    $scope.dropdown = item.items;
-                    $scope.dropdown.show = true;
-                    $scope.dropdown.direction = $scope.menu.location;
-                } else {
-                    $scope.dropdown.show = false;
-
-                    if (item !== $scope.menu.activeItem) {
-                        item.active = false;
-                    }
-                }
+            this.addItem = function(item) {
+                $scope.items.push(item);
             };
-
         }],
         link: function(scope, element, attrs) {
             var elementOriginalOffset;
@@ -46,5 +35,53 @@ angular.module('alchemy').directive('alchMenu', ['$window', function($window){
                  });
             }
         }
+    };
+}]);
+
+angular.module('alchemy').directive('alchMenuItem', [function() {
+    return {
+        restrict: 'EA',
+        transclude: 'element',
+        replace: true,
+        require: '^alchMenu',
+        scope: {
+            'href': '@alchMenuItem',
+            'dropdown': '@',
+        },
+        templateUrl: 'component/templates/menu-item.html',
+
+        link: function(scope, element, attrs, alchMenuController) {
+            var dropdownElement;
+
+            alchMenuController.addItem(scope);
+
+            if (attrs.dropdown !== undefined) {
+                dropdownElement = element.find('[alch-dropdown]').remove();
+                element.append(dropdownElement);
+            }
+        },
+
+        controller: ['$scope', function($scope) {
+            var showDropdown = this.showDropdown = function(show) {
+                if ($scope.dropdown) {
+                    $scope.dropdown.show = show;
+                }
+            };
+
+            this.addDropdown = function(dropdown) {
+                $scope.dropdown = dropdown;
+            };
+
+            $scope.handleHover = function(mousein) {
+                if (mousein) {
+                    $scope.active = mousein;
+                    showDropdown(mousein);
+                } else {
+                    $scope.active = mousein;
+                    showDropdown(mousein);
+                }
+            };
+
+        }]
     };
 }]);

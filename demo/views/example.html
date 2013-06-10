@@ -3,7 +3,29 @@
     <nav alch-menu="user_menu"></nav>
   </header>
   <header class="header nav-header">
-    <nav alch-menu="menu" compact></nav>
-    <nav alch-menu="admin_menu"></nav>
+    <nav alch-menu>
+      <li alch-menu-item="#/dashboard">Dashboard</li>
+      <li alch-menu-item="#/content" dropdown>
+        Content
+        <ul alch-dropdown>
+          <li alch-dropdown-item="#/luke">Content 1</li>
+          <li alch-dropdown-item="#/yoda">Some Really Long Content</li>
+          <li alch-dropdown-item="#/obiwan">Some Incredibly Super Duper Long Content</li>
+        </ul>
+      </li>
+      <li alch-menu-item="#/resources">Resources</li>
+      <li alch-menu-item="#/jedis" dropdown>
+        Jedis
+        <ul alch-dropdown>
+          <li alch-dropdown-item="#/luke">Luke Skywalker</li>
+          <li alch-dropdown-item="#/yoda">Yoda</li>
+          <li alch-dropdown-item="#/obiwan">Obiwan Kenobi</li>
+        </ul>
+      </li>
+    </nav>
+    <nav alch-menu class="fr">
+      <li alch-menu-item>Admin</li>
+      <li alch-menu-item>Notifications</li>
+    </nav>
   </header>
 </div>

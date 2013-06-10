@@ -1,0 +1,11 @@
+<li class="dropdown-item"
+    ng-mouseenter="setHover(item, true)"
+    ng-mouseleave="setHover(item, false)">
+
+  <a class="dropdown-item-link" 
+     href="{{ item.url }}" 
+     ng-class="{'menu-anchor' : item.type, 'dropdown-item-link-active' : active }"
+     ng-transclude>
+    <i class="right_arrow_icon-grey flyout-indicator" ng-show="item.type=='flyout'"></i>
+  </a>
+</li>
